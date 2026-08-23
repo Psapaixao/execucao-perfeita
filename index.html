@@ -1,0 +1,361 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EXECUÇÃO PERFEITA • Loja 001</title>
+<style>
+/* ===== V5 FINAL PROTOTYPE ===== */
+.v5-storebar{max-width:1000px;margin:0 auto 10px;background:#fff;border:1px solid #dce5ed;border-radius:13px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 14px #123d6309}
+.v5-store-title{font-size:11px;font-weight:900;letter-spacing:.7px;color:#667085}
+#storeSelector{border:2px solid #123d63;background:#fbfcfd;border-radius:9px;padding:9px 11px;font-weight:800;color:#123d63;min-width:180px;cursor:pointer;box-shadow:0 2px 8px #123d6314}
+#storeLabel{margin-left:auto;font-size:12px;font-weight:800;color:#123d63;background:#eaf2f8;padding:6px 9px;border-radius:999px}
+@media(max-width:480px){.v5-storebar{flex-wrap:wrap}.v5-store-title{width:100%}#storeLabel{margin-left:0}}
+
+.v5-topline{max-width:1000px;margin:0 auto 8px;padding:0 4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.v5-badge{font-size:10px;font-weight:900;letter-spacing:.8px;color:#123d63;background:#eaf2f8;border:1px solid #d6e4ee;border-radius:999px;padding:5px 9px}
+.v5-live{font-size:10px;font-weight:800;color:#2b7a4b;display:flex;align-items:center;gap:5px}
+.v5-live i{width:7px;height:7px;border-radius:50%;background:#5cc982;display:inline-block}
+.v5-summary{max-width:1000px;margin:0 auto 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.v5-kpi{background:#fff;border:1px solid #dce5ed;border-radius:13px;padding:11px 12px;box-shadow:0 4px 14px #123d6309}
+.v5-kpi small{display:block;color:#667085;font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:800}
+.v5-kpi strong{display:block;font-size:21px;margin-top:4px;color:#123d63}
+.v5-kpi em{font-style:normal;font-size:10px;color:#667085}
+.v5-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.v5-primary{border:0;border-radius:10px;background:#123d63;color:#fff;padding:10px 14px;font-weight:800;cursor:pointer}
+.v5-secondary{border:1px solid #cfd9e3;border-radius:10px;background:#fff;color:#123d63;padding:10px 14px;font-weight:800;cursor:pointer}
+.v5-primary:hover,.v5-secondary:hover{transform:translateY(-1px)}
+.v5-alert{border-left:4px solid #d99b22;background:#fffaf0;padding:10px 12px;border-radius:9px;margin:7px 0}
+.v5-alert.critical{border-left-color:#c84b4b;background:#fff6f6}
+.v5-empty{padding:18px;text-align:center;color:#667085;background:#f8fafc;border-radius:10px}
+@media(max-width:760px){.v5-summary{grid-template-columns:1fr 1fr}.v5-topline{padding:0 8px}}
+@media(max-width:430px){.v5-summary{gap:6px}.v5-kpi{padding:9px}.v5-kpi strong{font-size:18px}}
+
+
+.v4-statusbar{max-width:1000px;margin:0 auto 10px;background:#102f49;color:#fff;border-radius:12px;padding:9px 13px;display:flex;align-items:center;gap:18px;font-size:12px;box-shadow:0 5px 14px #123d6322}
+.v4-statusbar>div{display:flex;gap:5px;align-items:center}
+.v4-statusbar .dot{width:8px;height:8px;border-radius:50%;background:#65d38a;box-shadow:0 0 0 4px #65d38a22}
+.v4-statusbar strong{font-size:13px}
+@media(max-width:650px){.v4-statusbar{overflow-x:auto;justify-content:flex-start;white-space:nowrap}.v4-statusbar>div{flex:none}}
+/* V4 premium navigation */
+:root{--navy:#123d63;--navy2:#0b2e4a;--line:#dce5ed;--muted:#667085}
+.v4-nav{max-width:1000px;margin:12px auto;padding:9px;background:#fff;border:1px solid var(--line);border-radius:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;box-shadow:0 6px 20px #123d6312;position:sticky;top:8px;z-index:20}
+.v4-nav-btn{border:0;background:transparent;border-radius:12px;padding:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;color:#52606d;font-weight:800;font-size:13px}
+.v4-nav-btn .ico{width:32px;height:32px;border-radius:9px;background:#edf2f6;display:grid;place-items:center;color:var(--navy);font-size:17px}
+.v4-nav-btn small{display:block;font-weight:500;opacity:.8;margin-top:2px}
+.v4-nav-btn.active{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;box-shadow:0 6px 15px #123d6333}
+.v4-nav-btn.active .ico{background:#fff;color:var(--navy)}
+.v4-nav-btn:hover{background:#f4f8fb}
+.v4-anchor{scroll-margin-top:90px;display:block;height:1px}
+.v4-filters{max-width:1000px;margin:0 auto 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 5px 18px #123d630d}
+.v4-filter-title{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:800;margin-bottom:9px}
+.v4-filter-grid{display:grid;grid-template-columns:1fr 1.35fr 1.25fr .9fr;gap:9px}
+.v4-field input,.v4-field select{width:100%;box-sizing:border-box;border:1px solid #cfd9e3;background:#fbfcfd;border-radius:10px;padding:11px 12px;font-size:14px}
+.v4-area-head{display:flex;align-items:center;justify-content:space-between;margin:12px 0 8px}
+.v4-pill{font-size:11px;font-weight:800;background:#eaf2f8;color:var(--navy);padding:6px 9px;border-radius:999px}
+#sectors{display:flex;gap:8px;overflow-x:auto;padding:3px 2px 10px}
+#sectors .btn{min-width:128px;border:1px solid #d7e1ea;border-radius:12px;background:#fff;box-shadow:0 2px 7px #123d630b}
+#sectors .btn.active{background:linear-gradient(135deg,var(--navy),#1b5a89);color:#fff;border-color:var(--navy);box-shadow:0 6px 15px #123d6333}
+#sectors .btn.active span{color:#fff!important}
+@media(max-width:760px){.v4-nav{grid-template-columns:repeat(2,1fr);position:relative;top:0}.v4-filter-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.v4-filter-grid{grid-template-columns:1fr}.v4-nav-btn{justify-content:flex-start}}
+
+#sectors{display:flex;gap:7px;overflow-x:auto;padding:3px 2px 8px;scrollbar-width:thin} #sectors .btn{min-width:135px;white-space:nowrap;padding:10px 12px} #sectors .btn.active{background:#123d63;color:#fff}
+#sectorFilter{font-weight:bold;border:2px solid #79add4;background:#f7fbff}
+body{font-family:Arial;margin:0;background:#f3f6f9;color:#172b3a}header{background:#123d63;color:#fff;padding:18px;position:sticky;top:0}main{max-width:1000px;margin:auto;padding:14px}.card{background:#fff;border-radius:12px;padding:15px;margin:12px 0;box-shadow:0 2px 8px #0001}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.btn{padding:11px;border:0;border-radius:9px;background:#e7edf2;font-weight:bold;margin:3px;cursor:pointer}.ok{background:#dff5e7}.bad{background:#fde2e2}.active{outline:3px solid #79add4}.score{font-size:28px;font-weight:bold}.green{color:#16803c}.yellow{color:#a66b00}.red{color:#b42318}.item{border:1px solid #dde5ec;border-radius:10px;padding:12px;margin:9px 0}.small{font-size:12px;color:#667085}textarea{width:100%;min-height:55px;margin-top:8px;border:1px solid #ccd6e0;border-radius:8px;padding:8px;box-sizing:border-box}.bar{height:8px;background:#2f80ed;border-radius:8px}.track{background:#e8edf2;border-radius:8px}h1{margin:0;font-size:22px}@media(max-width:600px){main{padding:8px}}</style></head><body>
+<header><h1>⚡ EXECUÇÃO PERFEITA</h1><div>V1 • Checklist online • Nota calculada sobre 100% dos itens</div></header><main>
+
+
+<div class="v5-topline">
+  <span class="v5-badge">V5 • PROTÓTIPO FINAL</span>
+  <span class="v5-live"><i></i> Operação pronta</span>
+</div>
+<div class="v4-nav" id="moduleNav">
+<button class="v4-nav-btn active" onclick="goModule('topChecklist',this)"><span class="ico">☑</span><span>CHECKLIST<small>Execução</small></span></button>
+<button class="v4-nav-btn" onclick="goModule('dashboardAnchor',this)"><span class="ico">▥</span><span>ACOMPANHAMENTO<small>Dashboard</small></span></button>
+<button class="v4-nav-btn" onclick="goModule('actionAnchor',this)"><span class="ico">✓</span><span>AÇÕES<small>Pendências</small></span></button>
+<button class="v4-nav-btn" onclick="goModule('historyAnchor',this)"><span class="ico">▤</span><span>CONSULTAS<small>Histórico</small></span></button>
+</div>
+<div id="topChecklist" class="v4-anchor"></div>
+
+<div class="v5-summary" id="v5Summary">
+  <div class="v5-kpi"><small>Nota geral</small><strong id="v5Overall">—</strong><em>operação</em></div>
+  <div class="v5-kpi"><small>Execução</small><strong id="v5Completion">0%</strong><em>itens respondidos</em></div>
+  <div class="v5-kpi"><small>Setores críticos</small><strong id="v5Critical">0</strong><em>abaixo de 80</em></div>
+  <div class="v5-kpi"><small>Ações abertas</small><strong id="v5Open">0</strong><em>pendentes</em></div>
+</div>
+
+<div class="v5-storebar">
+  <div class="v5-store-title">🏪 LOJA</div>
+  <select id="storeSelector" onchange="v5SetStore(this.value)"></select>
+  <span id="storeLabel">✓ Loja 001 selecionada</span>
+</div>
+<div class="v4-filters">
+<div class="v4-filter-title">CONTEXTO DA RONDA</div>
+<div class="v4-filter-grid">
+<div class="v4-field"><input id="date" type="date"></div>
+<div class="v4-field"><input id="leader" placeholder="Líder / responsável"></div>
+<div class="v4-field"><select id="sectorFilter"><option value="TODOS">TODOS OS SETORES</option></select></div>
+<div class="v4-field"><select id="stage"><option>TODAS</option><option>ABERTURA</option><option>DURANTE O DIA</option><option>FECHAMENTO</option></select></div>
+</div></div>
+<div class="card"><div class="grid"><div>Nota geral<br><span id="overall" class="score">—</span></div><div>Respondidos<br><b id="answered">0</b></div><div>OK<br><b id="oks">0</b></div><div>NÃO OK<br><b id="bads">0</b></div></div></div>
+<div class="card">
+<h3>📍 Áreas</h3>
+<div class="small" style="margin-bottom:8px">Selecione uma área para abrir somente o checklist correspondente.</div>
+<div id="sectors"></div>
+</div>
+<div class="card"><div id="tabs"></div><div id="title"></div><div id="items"></div></div>
+<div class="card"><h3>Acompanhamento</h3><div id="summary"></div></div>
+<div class="card">
+  <h3>📊 Gestão do Setor</h3>
+  <div class="grid">
+    <div><label class="small">Meta de vendas</label><input id="salesTarget" type="number" step="0.01" placeholder="R$"></div>
+    <div><label class="small">Atingimento (%)</label><input id="salesAch" type="number" step="0.1" placeholder="%"></div>
+    <div><label class="small">Atingimento x loja</label>
+      <select id="salesVsStore"><option value="">Selecione</option><option>MAIOR</option><option>IGUAL</option><option>MENOR</option></select>
+    </div>
+    <div><label class="small">Quebra</label><input id="shrink" type="number" step="0.01" placeholder="R$"></div>
+    <div><label class="small">Segurança Alimentar</label><input id="foodSafety" type="number" min="0" max="100" step="0.1" placeholder="0–100"></div>
+    <div><label class="small">Segurança no Trabalho</label><input id="workSafety" type="number" min="0" max="100" step="0.1" placeholder="0–100"></div>
+    <div><label class="small">Nota RH</label><input id="hrScore" type="number" min="0" max="100" step="0.1" placeholder="0–100"></div>
+    <div><label class="small">DRE setorial</label><input id="dre" placeholder="Resultado / observação"></div>
+  </div>
+</div>
+
+<div class="card">
+  <span id="actionAnchor" class="v4-anchor"></span><h3>🛠️ Plano de Ação</h3>
+  <div class="grid">
+    <input id="actionText" placeholder="Descreva a ação corretiva">
+    <input id="actionOwner" placeholder="Responsável">
+    <input id="actionDue" type="date">
+    <select id="actionStatus"><option>ABERTA</option><option>EM ANDAMENTO</option><option>CONCLUÍDA</option></select>
+  </div>
+  <button class="btn" style="background:#123d63;color:#fff;margin-top:8px" onclick="addAction()">+ Adicionar ação</button>
+  <div id="actions"></div>
+</div>
+
+
+<div class="card">
+<span id="dashboardAnchor" class="v4-anchor"></span><div id="v5ExecutiveAlerts" class="v5-anchor"></div><h3>🎯 Dashboard da Gestão</h3>
+<div class="grid">
+<div><span class="small">Nota geral</span><div id="v3Overall" class="score">—</div></div>
+<div><span class="small">% executado</span><div id="v3Completion" class="score">0%</div></div>
+<div><span class="small">Setores abaixo de 80</span><div id="v3Critical" class="score red">0</div></div>
+<div><span class="small">Ações abertas</span><div id="v3OpenActions" class="score yellow">0</div></div>
+</div>
+<h4>Ranking dos setores</h4><div id="v3Ranking"></div>
+</div>
+<div class="card"><h3>🚨 Alertas de Gestão</h3><div id="v3Alerts"></div></div>
+<div class="card"><h3>📈 Evolução das Rodadas</h3><div id="v3Trend"></div></div>
+<div class="card">
+  <span id="historyAnchor" class="v4-anchor"></span><h3>🕘 Histórico da Execução</h3>
+  <div class="small">Cada vez que você salvar a rodada, o resultado fica registrado neste dispositivo.</div>
+  <button class="btn" onclick="saveSession()">💾 Salvar rodada atual</button>
+  <button class="btn" onclick="clearHistory()">Limpar histórico</button>
+  <div id="history"></div>
+</div>
+
+</main>
+<script>
+const ITEMS=[{"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Abertura do balcão, expositores e ilhas de congelados executada conforme padrão."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Balcão de carnes frescas abastecido dentro da linha de capacidade e com boa apresentação."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Cortes expostos conforme GC e orientação comercial da loja."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Recortes e cortes promocionais estão devidamente expostos e sinalizados."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Cortes familiar/regional e itens promocionais executados conforme orientação vigente."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Cortes expostos utilizam suportes de acrílico e identificação correta."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Cartalização do balcão e ilhas executada conforme padrão do MKT."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Ilhas de congelados abastecidas até o limite demarcado do equipamento."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Expositores de carne a vácuo utilizam molduras de ofertas nas promoções."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Cortes suínos, frango, churrasco e demais famílias apresentam mix adequado."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Câmara do açougue organizada, limpa e com separação adequada dos produtos."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Produtos da retaguarda identificados, datados e dentro da validade."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Rodízio de validade/PVPS executado corretamente."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Produtos com data curta identificados e tratados conforme processo."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Cestinhas de compras disponíveis e em boas condições."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Balcões, ilhas e expositores limpos."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Equipamentos e utensílios de manipulação higienizados."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Ralos limpos, desobstruídos e sem água parada."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Uniformes e EPIs limpos e adequados para manipulação."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Pias de mãos abastecidas com sabonete e papel-toalha."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Produtos químicos separados dos alimentos e corretamente identificados."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Área livre de artigos pessoais, alimentos e bebidas."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Controle de temperatura dos produtos/equipamentos realizado."}, {"sector": "AÇOUGUE", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Açougueiro", "item": "Etiquetas e informações dos produtos legíveis e corretas."}, {"sector": "AÇOUGUE", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Açougueiro", "item": "Não há evidências de pragas e as barreiras físicas estão funcionando."}, {"sector": "AÇOUGUE", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Açougueiro", "item": "Padrão de Cartalização aplicado no setor: balcão, ilhas, ofertas, clube e demais pontos conforme orientação vigente."}, {"sector": "PADARIA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Padaria", "item": "Mesas, balcões e expositores abastecidos nas quantidades corretas."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Exposição executada conforme GC definido para a loja."}, {"sector": "PADARIA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Padaria", "item": "Molduras de ofertas/clube utilizadas nos itens promocionais."}, {"sector": "PADARIA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Padaria", "item": "Etiquetas brancas e placas de identificação utilizadas conforme padrão."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Pontos extras estratégicos executados quando previstos."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Produtos com foto/identificação estão posicionados corretamente."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Produtos frescos, com qualidade e boa apresentação."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Controle de estoque realizado diariamente."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Trocas com fornecedor acompanhadas conforme processo."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Balcões, ilhas, expositores e piso de vendas limpos."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Equipamentos e utensílios de produção higienizados."}, {"sector": "PADARIA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Padaria", "item": "Telas, carrinhos e áreas internas sem sujidades impregnadas."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Produtos da retaguarda identificados, datados e dentro da validade."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Câmaras organizadas, limpas e com armazenamento adequado."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Descongelamento realizado corretamente, em refrigeração e sinalizado."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Higienização de frutas e verduras realizada quando aplicável."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Produtos expostos respeitam PVPS."}, {"sector": "PADARIA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Padaria", "item": "Produtos refrigerados/congelados estão na temperatura correta."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Ralos limpos, com livre escoamento e sem água parada."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Pias de mãos abastecidas e limpas."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Químicos e materiais de limpeza disponíveis, identificados e separados dos alimentos."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Uniformes e EPIs limpos e adequados."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Área de manipulação livre de artigos pessoais e consumo de alimentos/bebidas."}, {"sector": "PADARIA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Padaria", "item": "Área livre de pragas e barreiras físicas adequadas."}, {"sector": "PADARIA", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Padaria", "item": "Produtos e superfícies protegidos contra contaminação cruzada."}, {"sector": "PADARIA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Padaria", "item": "Padrão de Cartalização aplicado no setor conforme orientação vigente."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "Mix completo e área de vendas abastecida."}, {"sector": "PAS / FRIOS", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/PAS", "item": "Precificação nas portas de vidro executada conforme padrão."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "Folha A4 utilizada para destacar os melhores preços."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "Promoções sinalizadas com placa OFERTA/CLUBE e moldura de preço."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "Preço regular sinalizado com placa adequada."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "QR Code executado conforme padrão e link atualizado."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Rodízio de validade/PVPS realizado na reposição."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Câmara fria organizada, limpa e agrupada por fornecedor."}, {"sector": "PAS / FRIOS", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/PAS", "item": "Controle de estoque realizado diariamente."}, {"sector": "PAS / FRIOS", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/PAS", "item": "Trocas com fornecedor executadas conforme política comercial."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Balcões, ilhas, expositores e piso limpos."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Produtos da retaguarda identificados, datados e dentro da validade."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Produtos expostos dentro da validade."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Produtos expostos respeitam PVPS."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "Produtos refrigerados e congelados na temperatura correta."}, {"sector": "PAS / FRIOS", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/PAS", "item": "Rótulos corretos, completos e legíveis."}, {"sector": "PAS / FRIOS", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/PAS", "item": "Produtos dentro do padrão de qualidade."}, {"sector": "PAS / FRIOS", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/PAS", "item": "Produtos e utensílios protegidos contra contaminação."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Área livre de pragas e barreiras físicas adequadas."}, {"sector": "PAS / FRIOS", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/PAS", "item": "Ralos limpos e sem água parada."}, {"sector": "PAS / FRIOS", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/PAS", "item": "Padrão de Cartalização aplicado no PAS: ofertas, clube, preço regular e demais pontos conforme orientação vigente."}, {"sector": "HORTIFRUTI", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Hortifruti", "item": "Produtos sempre abastecidos e com exposição atrativa e organizada."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Abastecimento das caixas realizado continuamente conforme necessidade."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Rodízio padrão entre caixas executado corretamente."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "GC do hortifruti executado conforme padrão definido para a loja."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Produtos armazenados na câmara e sob as bancas conforme orientação."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Contagem e ajustes de estoque realizados conforme cronograma."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Contagem aprovada no sistema dentro do horário estabelecido."}, {"sector": "HORTIFRUTI", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Hortifruti", "item": "Produtos em oferta devidamente cartazados e evidenciados."}, {"sector": "HORTIFRUTI", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Hortifruti", "item": "Itens fora da promoção com etiqueta de preço normal."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Etiquetas de rastreabilidade atualizadas e visíveis ao cliente."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Produtos da retaguarda identificados, datados e dentro da validade."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Produtos da área de vendas dentro da validade."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "PVPS executado corretamente."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Produtos dentro do padrão de qualidade, frescor e apresentação."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Balcões, bancas, ilhas, expositores e piso limpos."}, {"sector": "HORTIFRUTI", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Hortifruti", "item": "Produtos refrigerados na temperatura correta."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Câmara organizada e limpa."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Resíduos/quebras descartados corretamente e local organizado."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Galões de quebra em quantidade suficiente e adequados."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Pias de mãos abastecidas e limpas."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Lixeira com saco plástico e mantida fechada, abrindo somente no uso."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Produtos químicos separados dos alimentos e identificados."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Higienização de frutas e verduras realizada corretamente."}, {"sector": "HORTIFRUTI", "stage": "DURANTE O DIA", "time": "09:00 / 13:00 / 17:00", "responsible": "Encarregado/Hortifruti", "item": "Área livre de artigos pessoais."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Área livre de pragas e barreiras físicas adequadas."}, {"sector": "HORTIFRUTI", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Hortifruti", "item": "Ralos limpos e sem água parada."}, {"sector": "HORTIFRUTI", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Hortifruti", "item": "Padrão de Cartalização aplicado no Hortifruti: ofertas, preço regular, pontos promocionais e demais pontos conforme orientação vigente."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Gôndolas abastecidas, cheias e sem rupturas aparentes."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Produtos alinhados e com frente bem executada."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Corredores livres para circulação dos clientes."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Produtos separados por setor, categoria e ponto de abastecimento."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Abastecimento realizado respeitando o layout/planograma."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Produtos mais antigos posicionados à frente."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Produtos danificados ou fora de lugar retirados/corrigidos."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Etiquetas de preço visíveis e correspondentes ao produto."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Modulares executados conforme layout definido."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Sequência do layout respeitada."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Pontos extras, pontas e ilhas executados conforme orientação regional."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Ilhas promocionais na altura/padrão definido."}, {"sector": "SALÃO DE LOJA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Salão", "item": "Materiais de campanha limpos, alinhados, bem fixados e atualizados."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Ofertas com mensagem clara e preço visível."}, {"sector": "SALÃO DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Encarregado/Salão", "item": "Setorização e comunicação facilitam a jornada do cliente."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Picking organizado por setor/categoria e ordem de abastecimento."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Caixas e carrinhos de abastecimento não bloqueiam a circulação."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Produtos no picking organizados para ganho de produtividade."}, {"sector": "SALÃO DE LOJA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Encarregado/Salão", "item": "Limpeza de gôndolas, prateleiras e piso em padrão adequado."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Ausência de produtos no chão e sob expositores."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Expositores e equipamentos sem sujidades aparentes."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Cestinhas/carrinhos disponíveis, organizados e em boas condições."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Promotores aderentes ao padrão de abastecimento, exposição, preço e limpeza."}, {"sector": "SALÃO DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Encarregado/Salão", "item": "Padrão de Cartalização do salão aplicado conforme campanha, oferta, categoria e orientação vigente."}, {"sector": "FRENTE DE LOJA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Fiscal de Caixa", "item": "Frentes de caixa organizadas e limpas."}, {"sector": "FRENTE DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Líder/Fiscal de Caixa", "item": "Checkouts livres de excesso de materiais e objetos."}, {"sector": "FRENTE DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Fiscal de Caixa", "item": "Filas e áreas de circulação organizadas."}, {"sector": "FRENTE DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Líder/Fiscal de Caixa", "item": "Materiais de comunicação e campanhas atualizados."}, {"sector": "FRENTE DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Fiscal de Caixa", "item": "Preços/ofertas expostos de forma clara e legível."}, {"sector": "FRENTE DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Fiscal de Caixa", "item": "Produtos de impulso organizados e abastecidos."}, {"sector": "FRENTE DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Fiscal de Caixa", "item": "Carrinhos e cestinhas disponíveis para o cliente."}, {"sector": "FRENTE DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Líder/Fiscal de Caixa", "item": "Equipamentos de frente de caixa em boas condições aparentes."}, {"sector": "FRENTE DE LOJA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Fiscal de Caixa", "item": "Área de atendimento limpa e com boa apresentação."}, {"sector": "FRENTE DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Líder/Fiscal de Caixa", "item": "Equipe com postura e atendimento adequado ao cliente."}, {"sector": "FRENTE DE LOJA", "stage": "DURANTE O DIA", "time": "10:00 / 14:00 / 18:00", "responsible": "Líder/Fiscal de Caixa", "item": "Não há obstruções nas rotas de circulação."}, {"sector": "FRENTE DE LOJA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Fiscal de Caixa", "item": "Resíduos descartados corretamente."}, {"sector": "FRENTE DE LOJA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Fiscal de Caixa", "item": "Padrão de Cartalização da frente de loja aplicado nos pontos promocionais e de comunicação conforme orientação vigente."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Entrada da loja limpa, organizada e sem obstruções."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Calçada e acessos em boas condições de limpeza."}, {"sector": "ÁREA EXTERNA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Operacional", "item": "Estacionamento/pátio organizado."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Doca de recebimento limpa e organizada."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Área da lixeira limpa e organizada."}, {"sector": "ÁREA EXTERNA", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder/Operacional", "item": "Lixeiras com acondicionamento adequado e sem descarte irregular."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Resíduos de alimentos impróprios descaracterizados antes do descarte."}, {"sector": "ÁREA EXTERNA", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder/Operacional", "item": "Produtos não permanecem diretamente sobre o chão."}, {"sector": "ÁREA EXTERNA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Operacional", "item": "Pallets organizados e em condição segura."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Barreiras físicas contra pragas mantidas adequadamente."}, {"sector": "ÁREA EXTERNA", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder/Operacional", "item": "Cortinas plásticas completas e em bom estado."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Iscas/controles de pragas presentes na posição correta."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Piso de depósito/recebimento limpo."}, {"sector": "ÁREA EXTERNA", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder/Operacional", "item": "Aéreos identificados com data de validade visível."}, {"sector": "ÁREA EXTERNA", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder/Operacional", "item": "Produtos químicos separados dos alimentos."}, {"sector": "ÁREA EXTERNA", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder/Operacional", "item": "Área externa sem materiais desnecessários acumulados."}, {"sector": "ÁREA EXTERNA", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder/Operacional", "item": "Iluminação e instalações aparentam estar em condições adequadas."}, {"sector": "ÁREA EXTERNA", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder/Operacional", "item": "Padrão de Cartalização aplicado nos pontos externos e campanhas quando previsto."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Uniformes e EPIs dos manipuladores limpos e adequados."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Colaboradores utilizam corretamente os lava-botas quando aplicável."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Áreas de manipulação livres de artigos pessoais e consumo de alimentos/bebidas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Higienização das mãos realizada corretamente e nos momentos necessários."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Luvas utilizadas e trocadas corretamente para alimentos prontos para consumo."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Pias de mãos com água, sabonete e papel-toalha, limpas e desobstruídas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Lixeiras funcionais, com saco e mantidas fechadas quando não utilizadas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Produtos químicos separados dos alimentos e superfícies de contato."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Produtos químicos e ferramentas de limpeza disponíveis, rotulados e em bom estado."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Planilhas de higienização preenchidas corretamente e na frequência definida."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Planilhas de rastreabilidade preenchidas e rótulos armazenados corretamente."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Superfícies sem contato com alimentos limpas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Equipamentos e utensílios de contato com alimentos limpos."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Caixas de PVC/brancas higienizadas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Ralos limpos, desobstruídos e sem água parada."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Resíduos descartados corretamente e recipientes limpos."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Setores livres de evidências/atividade de pragas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Barreiras físicas contra pragas mantidas adequadamente."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Áreas de alimentos livres de condensação indevida."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Alimentos da retaguarda identificados, datados e dentro da validade."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Pallets full do aéreo identificados com validade visível."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Câmaras organizadas, limpas e sem armazenamento inadequado."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Alimentos separados por espécie e crus separados dos prontos para consumo."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Utensílios, embalagens e materiais armazenados protegidos contra contaminação."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Alimentos e superfícies protegidos contra contaminação cruzada."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Produtos da área de vendas dentro da validade."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "PVPS executado corretamente na área de vendas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Rótulos corretos, completos e legíveis."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Produtos dentro do padrão de qualidade."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Expositores e balcões limpos."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder do setor", "item": "Temperaturas de balcões, ilhas e câmaras verificadas e registradas."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder do setor", "item": "Não conformidades de temperatura registradas com ação corretiva."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder do setor", "item": "Termômetro disponível e funcionando."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder do setor", "item": "Temperatura de recebimento verificada e registrada diariamente."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder do setor", "item": "Depósito organizado, com produtos sobre pallets."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Produtos químicos separados dos alimentos no depósito."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Área de quebras limpa, organizada e sem acúmulo indevido."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Documentações legais sanitárias expostas e dentro da validade."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Cronograma de limpeza da caixa d'água cumprido."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Plano de ação da auditoria anterior entregue no prazo quando aplicável."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "FECHAMENTO", "time": "1h antes do fechamento", "responsible": "Líder do setor", "item": "Brigada de validade executada conforme cronograma."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Pendências de manutenção com chamado aberto e acompanhamento registrado."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "DURANTE O DIA", "time": "11:00 / 15:00 / 19:00", "responsible": "Líder do setor", "item": "Pontos do último REF corrigidos ou com chamado aberto."}, {"sector": "SEGURANÇA ALIMENTAR", "stage": "ABERTURA", "time": "Antes da abertura", "responsible": "Líder do setor", "item": "Padrão de Cartalização não apresenta risco à segurança dos alimentos e está aplicado sem obstruir informações obrigatórias ou causar contaminação."}];let S=JSON.parse(localStorage.getItem("execucao_perfeita")||"{}"),sec=ITEMS[0]?.sector||"",stage="TODAS";
+const secs=[...new Set(ITEMS.map(x=>x.sector))]; document.getElementById("sectorFilter").innerHTML=`<option value="TODOS">TODOS OS SETORES</option>`+secs.map(s=>`<option value="${s}">${s}</option>`).join("");
+function goModule(id,btn){
+document.querySelectorAll(".v4-nav-btn").forEach(x=>x.classList.remove("active"));
+if(btn)btn.classList.add("active");
+const el=document.getElementById(id);
+if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function totExecution(s){
+const q=score(s);
+return q.total?Math.round((q.ok+q.bad)/q.total*100):0;
+}
+
+function v5Stats(){
+  let total=0,answered=0,ok=0,bad=0;
+  const rows=secs.map(s=>{
+    const q=score(s);
+    total+=q.total; answered+=q.ok+q.bad; ok+=q.ok; bad+=q.bad;
+    return {sector:s,q:q};
+  });
+  const overall=total?ok/total*100:null;
+  return {total,answered,ok,bad,rows,overall};
+}
+function renderV5(){
+  const d=v5Stats();
+  const set=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val;};
+  set("v5Overall",d.overall==null?"—":d.overall.toFixed(1));
+  set("v5Completion",d.total?Math.round(d.answered/d.total*100)+"%":"0%");
+  set("v5Critical",d.rows.filter(x=>x.q.score!=null&&x.q.score<80).length);
+  set("v5Open",typeof actionsData!=="undefined"?actionsData.filter(a=>a.status!=="CONCLUÍDA").length:0);
+  refreshV5Area();
+}
+function refreshV5Area(){
+  const q=score(sec);
+  const store=document.getElementById("v5CurrentStoreStatus");const area=document.getElementById("v4CurrentArea");
+  const exec=document.getElementById("v4Execution");
+  const nota=document.getElementById("v4Score");
+  if(store)store.textContent=v5CurrentStore; if(area)area.textContent=sec;
+  if(exec)exec.textContent=q.total?Math.round((q.ok+q.bad)/q.total*100)+"%":"0%";
+  if(nota)nota.textContent=q.score==null?"—":q.score.toFixed(1);
+}
+function v5FinalizarRonda(){
+  const d=v5Stats();
+  if(!d.total){alert("Não há itens para finalizar.");return;}
+  const pending=d.total-d.answered;
+  const msg=pending
+    ? "Ainda existem "+pending+" item(ns) sem resposta. Deseja salvar a rodada mesmo assim?"
+    : "Todos os itens foram respondidos. Deseja salvar esta rodada?";
+  if(confirm(msg)){
+    if(typeof saveSession==="function") saveSession();
+    v5InitStores();renderV5();
+    alert("Rodada salva com sucesso.");
+  }
+}
+function v5Go(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+const V5_STORES=Array.from({length:999},(_,i)=>String(i+1).padStart(3,"0"));
+let v5CurrentStore=localStorage.getItem("execucao_perfeita_store")||"001";
+
+function v5InitStores(){
+  const sel=document.getElementById("storeSelector");
+  if(!sel)return;
+  sel.innerHTML=V5_STORES.map(n=>`<option value="${n}">Loja ${n}</option>`).join("");
+  sel.value=v5CurrentStore;
+  const label=document.getElementById("storeLabel");
+  if(label)label.textContent="✓ Loja "+v5CurrentStore+" selecionada";
+}
+function v5SetStore(n){
+  v5CurrentStore=n; document.title="EXECUÇÃO PERFEITA • Loja "+n;
+  localStorage.setItem("execucao_perfeita_store",n);
+  const label=document.getElementById("storeLabel");
+  if(label)label.textContent="Loja "+n;
+  if(typeof renderV5==="function")renderV5();
+}
+function score(s){let a=ITEMS.map((x,i)=>({...x,i})).filter(x=>x.sector===s),ok=0,bad=0;a.forEach(x=>{let v=S[x.i]?.v;if(v=="ok")ok++;if(v=="bad")bad++});return {ok,bad,n:a.length,total:a.length,pending:a.length-ok-bad,score:a.length?ok/a.length*100:null}}
+function color(n){return n==null?"":n>=90?"green":n>=70?"yellow":"red"}
+function save(){localStorage.setItem("execucao_perfeita",JSON.stringify(S))}
+function setv(i,v){S[i]=S[i]||{};S[i].v=v;save();render()}
+function seto(i,v){S[i]=S[i]||{};S[i].o=v;save()}
+function render(){
+ document.getElementById("sectors").innerHTML=secs.map(s=>{let q=score(s);return `<button class="btn ${s==sec?"active":""}" onclick="sec=${JSON.stringify(s)};document.getElementById("sectorFilter").value=sec;stage='TODAS';render()">${s}<br><span class="${s==sec?"":color(q.score)}">${q.score==null?"—":q.score.toFixed(1)}</span></button>`}).join("");
+ document.getElementById("tabs").innerHTML=["TODAS","ABERTURA","DURANTE O DIA","FECHAMENTO"].map(x=>`<button class="btn ${x==stage?"active":""}" onclick="stage='${x}';render()">${x}</button>`).join("");
+ let arr=ITEMS.map((x,i)=>({...x,i})).filter(x=>x.sector==sec&&(stage=="TODAS"||x.stage==stage));
+ document.getElementById("title").innerHTML=`<h2>📌 ${sec}</h2><div class="small">${arr.length} itens • área selecionada</div>`;
+ document.getElementById("items").innerHTML=arr.map(x=>{let z=S[x.i]||{};return `<div class="item"><div class="small">${x.stage} • ${x.time} • ${x.responsible}</div><b>${x.item}</b><div><button class="btn ok ${z.v=="ok"?"active":""}" onclick="setv(${x.i},'ok')">✓ OK</button><button class="btn bad ${z.v=="bad"?"active":""}" onclick="setv(${x.i},'bad')">✕ NÃO OK</button><button class="btn" onclick="setv(${x.i},'')">Limpar</button></div><textarea placeholder="Observação / ação corretiva" onblur="seto(${x.i},this.value)">${z.o||""}</textarea></div>`}).join("");
+ let tot=0,ok=0,bad=0;document.getElementById("summary").innerHTML=secs.map(s=>{let q=score(s);tot+=q.total;ok+=q.ok;bad+=q.bad;return `<div style="margin:10px 0"><b>${s}</b><b style="float:right" class="${color(q.score)}">${q.score==null?"—":q.score.toFixed(1)}</b><div class="track"><div class="bar" style="width:${q.score||0}%"></div></div><span class="small">${q.ok} OK • ${q.bad} NÃO OK • ${q.pending} pendentes • ${q.n} itens</span></div>`}).join("");
+ document.getElementById("answered").textContent=ok+bad;document.getElementById("oks").textContent=ok;document.getElementById("bads").textContent=bad;document.getElementById("overall").textContent=tot?(ok/tot*100).toFixed(1):"—";renderActions();renderV3();refreshV4Status();
+}
+
+
+function renderV3(){
+ const d=v3Data();
+ document.getElementById("v3Overall").textContent=d.overall==null?"—":d.overall.toFixed(1);
+ document.getElementById("v3Completion").textContent=d.total?((d.ok+d.bad)/d.total*100).toFixed(0)+"%":"0%";
+ document.getElementById("v3Critical").textContent=d.rows.filter(x=>x.q.score!=null&&x.q.score<80).length;
+ document.getElementById("v3OpenActions").textContent=actionsData.filter(a=>a.status!=="CONCLUÍDA").length;
+ const ranking=[...d.rows].sort((a,b)=>(b.q.score??-1)-(a.q.score??-1));
+ document.getElementById("v3Ranking").innerHTML=ranking.map((x,i)=>`<div style="margin:9px 0"><div style="display:flex;justify-content:space-between"><b>${i+1}. ${x.s}</b><b class="${color(x.q.score)}">${x.q.score==null?"PENDENTE":x.q.score.toFixed(1)}</b></div><div class="track"><div class="bar" style="width:${x.q.score||0}%"></div></div><div class="small">${x.q.ok} OK • ${x.q.bad} NÃO OK • ${x.q.pending} pendentes</div></div>`).join("");
+ let alerts=[];
+ d.rows.forEach(x=>{if(x.q.score!=null&&x.q.score<70)alerts.push(`🔴 <b>${x.s}</b>: nota crítica (${x.q.score.toFixed(1)}).`);else if(x.q.score!=null&&x.q.score<80)alerts.push(`🟡 <b>${x.s}</b>: abaixo de 80 (${x.q.score.toFixed(1)}).`);if(x.q.pending>0)alerts.push(`⚠️ <b>${x.s}</b>: ${x.q.pending} item(ns) pendente(s).`);});
+ actionsData.filter(a=>a.status!=="CONCLUÍDA").forEach(a=>alerts.push(`🛠️ <b>${a.sector}</b>: ação "${a.text}" está ${a.status.toLowerCase()}.`));
+ document.getElementById("v3Alerts").innerHTML=alerts.length?alerts.map(x=>`<div class="item">${x}</div>`).join(""):"<div class='small'>Nenhum alerta no momento.</div>";
+ const hist=[...historyData].slice(0,10).reverse();
+ document.getElementById("v3Trend").innerHTML=hist.length?hist.map(h=>`<div style="margin:9px 0"><div style="display:flex;justify-content:space-between"><span>${h.date||"-"} • ${h.sector}</span><b class="${color(h.score)}">${h.score==null?"—":h.score.toFixed(1)}</b></div><div class="track"><div class="bar" style="width:${h.score||0}%"></div></div></div>`).join(""):"<div class='small'>Salve algumas rodadas para visualizar a evolução.</div>";
+}
+function v3Data(){
+ let total=0,ok=0,bad=0;const rows=secs.map(s=>{const q=score(s);total+=q.total;ok+=q.ok;bad+=q.bad;return{s,q}});
+ return{total,ok,bad,rows,overall:total?ok/total*100:null};
+}
+let historyData=JSON.parse(localStorage.getItem("execucao_perfeita_history")||"[]");
+let actionsData=JSON.parse(localStorage.getItem("execucao_perfeita_actions")||"[]");
+
+function saveManagement(){
+  const fields=["salesTarget","salesAch","salesVsStore","shrink","foodSafety","workSafety","hrScore","dre"];
+  let m={}; fields.forEach(k=>m[k]=document.getElementById(k).value);
+  localStorage.setItem("execucao_perfeita_management",JSON.stringify(m));
+}
+function loadManagement(){
+  let m=JSON.parse(localStorage.getItem("execucao_perfeita_management")||"{}");
+  Object.keys(m).forEach(k=>{let e=document.getElementById(k);if(e)e.value=m[k]});
+}
+function addAction(){
+  const text=document.getElementById("actionText").value.trim();
+  if(!text)return;
+  actionsData.push({
+    id:Date.now(), text,
+    owner:document.getElementById("actionOwner").value,
+    due:document.getElementById("actionDue").value,
+    status:document.getElementById("actionStatus").value,
+    sector:sec,
+    created:new Date().toLocaleString("pt-BR")
+  });
+  localStorage.setItem("execucao_perfeita_actions",JSON.stringify(actionsData));
+  document.getElementById("actionText").value="";
+  document.getElementById("actionOwner").value="";
+  document.getElementById("actionDue").value="";
+  renderActions();renderV3();refreshV4Status();
+}
+function updateAction(id,field,value){
+  const a=actionsData.find(x=>x.id===id); if(!a)return;
+  a[field]=value; localStorage.setItem("execucao_perfeita_actions",JSON.stringify(actionsData)); renderActions();renderV3();refreshV4Status();
+}
+function deleteAction(id){
+  actionsData=actionsData.filter(x=>x.id!==id);
+  localStorage.setItem("execucao_perfeita_actions",JSON.stringify(actionsData)); renderActions();renderV3();refreshV4Status();
+}
+function renderActions(){
+  const el=document.getElementById("actions");
+  const arr=actionsData.filter(a=>a.sector===sec);
+  el.innerHTML=arr.length?arr.map(a=>`<div class="item">
+    <b>${a.text}</b><div class="small">Setor: ${a.sector} • Criada: ${a.created}</div>
+    <div class="grid" style="margin-top:8px">
+      <input value="${a.owner||""}" placeholder="Responsável" onchange="updateAction(${a.id},'owner',this.value)">
+      <input type="date" value="${a.due||""}" onchange="updateAction(${a.id},'due',this.value)">
+      <select onchange="updateAction(${a.id},'status',this.value)">
+        ${["ABERTA","EM ANDAMENTO","CONCLUÍDA"].map(s=>`<option ${a.status===s?"selected":""}>${s}</option>`).join("")}
+      </select>
+    </div>
+    <button class="btn" onclick="deleteAction(${a.id})">Excluir</button>
+  </div>`).join(""):"<div class='small' style='margin-top:10px'>Nenhuma ação cadastrada para este setor.</div>";
+}
+function saveSession(){
+  const q=score(sec);
+  let management={};
+  ["salesTarget","salesAch","salesVsStore","shrink","foodSafety","workSafety","hrScore","dre"].forEach(k=>management[k]=document.getElementById(k).value);
+  historyData.unshift({
+    date:document.getElementById("date").value,
+    leader:document.getElementById("leader").value,
+    sector:sec, stage:stage,
+    score:q.score, ok:q.ok, bad:q.bad, pending:q.pending,
+    management
+  });
+  historyData=historyData.slice(0,50);
+  localStorage.setItem("execucao_perfeita_history",JSON.stringify(historyData));
+  saveManagement(); renderHistory();
+  alert("Rodada salva com sucesso.");
+}
+function renderHistory(){
+  const el=document.getElementById("history");
+  el.innerHTML=historyData.length?historyData.map((h,i)=>`<div class="item">
+    <b>${h.date||"-"} • ${h.sector}</b>
+    <div class="small">${h.leader||"Sem líder"} • ${h.stage} • Nota: <b>${h.score==null?"—":h.score.toFixed(1)}</b> • ${h.ok} OK • ${h.bad} NÃO OK • ${h.pending} pendentes</div>
+  </div>`).join(""):"<div class='small' style='margin-top:10px'>Nenhuma rodada salva ainda.</div>";
+}
+function clearHistory(){
+  if(confirm("Apagar todo o histórico deste dispositivo?")){
+    historyData=[];localStorage.setItem("execucao_perfeita_history","[]");renderHistory();
+  }
+}
+document.getElementById("date").value=new Date().toISOString().slice(0,10);
+document.getElementById("sectorFilter").onchange=e=>{sec=e.target.value==="TODOS"?secs[0]:e.target.value;render()};
+document.getElementById("stage").onchange=e=>{stage=e.target.value;render()};
+["salesTarget","salesAch","salesVsStore","shrink","foodSafety","workSafety","hrScore","dre"].forEach(k=>document.getElementById(k).addEventListener("change",saveManagement));
+loadManagement();renderActions();renderHistory();renderV3();v5InitStores();renderV5();render();
+</script></body></html>
+<script>
+const v5OriginalSaveSession=typeof saveSession==="function"?saveSession:null;
+if(v5OriginalSaveSession){
+  saveSession=function(){
+    localStorage.setItem("execucao_perfeita_store",v5CurrentStore);
+    return v5OriginalSaveSession.apply(this,arguments);
+  };
+}
+</script>

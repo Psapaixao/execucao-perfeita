@@ -57,7 +57,45 @@
 
 #sectors{display:flex;gap:7px;overflow-x:auto;padding:3px 2px 8px;scrollbar-width:thin} #sectors .btn{min-width:135px;white-space:nowrap;padding:10px 12px} #sectors .btn.active{background:#123d63;color:#fff}
 #sectorFilter{font-weight:bold;border:2px solid #79add4;background:#f7fbff}
-body{font-family:Arial;margin:0;background:#f3f6f9;color:#172b3a}header{background:#123d63;color:#fff;padding:18px;position:sticky;top:0}main{max-width:1000px;margin:auto;padding:14px}.card{background:#fff;border-radius:12px;padding:15px;margin:12px 0;box-shadow:0 2px 8px #0001}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.btn{padding:11px;border:0;border-radius:9px;background:#e7edf2;font-weight:bold;margin:3px;cursor:pointer}.ok{background:#dff5e7}.bad{background:#fde2e2}.active{outline:3px solid #79add4}.score{font-size:28px;font-weight:bold}.green{color:#16803c}.yellow{color:#a66b00}.red{color:#b42318}.item{border:1px solid #dde5ec;border-radius:10px;padding:12px;margin:9px 0}.small{font-size:12px;color:#667085}textarea{width:100%;min-height:55px;margin-top:8px;border:1px solid #ccd6e0;border-radius:8px;padding:8px;box-sizing:border-box}.bar{height:8px;background:#2f80ed;border-radius:8px}.track{background:#e8edf2;border-radius:8px}h1{margin:0;font-size:22px}@media(max-width:600px){main{padding:8px}}</style></head><body>
+body{font-family:Arial;margin:0;background:#f3f6f9;color:#172b3a}header{background:#123d63;color:#fff;padding:18px;position:sticky;top:0}main{max-width:1000px;margin:auto;padding:14px}.card{background:#fff;border-radius:12px;padding:15px;margin:12px 0;box-shadow:0 2px 8px #0001}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}.btn{padding:11px;border:0;border-radius:9px;background:#e7edf2;font-weight:bold;margin:3px;cursor:pointer}.ok{background:#dff5e7}.bad{background:#fde2e2}.active{outline:3px solid #79add4}.score{font-size:28px;font-weight:bold}.green{color:#16803c}.yellow{color:#a66b00}.red{color:#b42318}.item{border:1px solid #dde5ec;border-radius:10px;padding:12px;margin:9px 0}.small{font-size:12px;color:#667085}textarea{width:100%;min-height:55px;margin-top:8px;border:1px solid #ccd6e0;border-radius:8px;padding:8px;box-sizing:border-box}.bar{height:8px;background:#2f80ed;border-radius:8px}.track{background:#e8edf2;border-radius:8px}h1{margin:0;font-size:22px}@media(max-width:600px){main{padding:8px}}
+.v7-back-top{
+  position:fixed;
+  right:18px;
+  bottom:20px;
+  z-index:1000;
+  display:none;
+  align-items:center;
+  gap:7px;
+  border:1px solid #d6e4ee;
+  border-radius:999px;
+  background:#123d63;
+  color:#fff;
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:0 8px 22px #123d6338;
+  cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;
+}
+.v7-back-top:hover{
+  transform:translateY(-2px);
+  box-shadow:0 11px 26px #123d6348;
+}
+.v7-back-top.show{display:flex}
+.v7-back-top .arrow{
+  width:22px;height:22px;border-radius:50%;
+  background:#fff;color:#123d63;
+  display:grid;place-items:center;font-size:15px;line-height:1;
+}
+@media(max-width:480px){
+  .v7-back-top{right:12px;bottom:14px;padding:9px 12px;font-size:11px}
+  .v7-back-top .label{display:none}
+}
+</style></head><body>
+
+<button id="v7BackTop" class="v7-back-top" type="button" onclick="v7BackToTop()" aria-label="Voltar ao início">
+  <span class="arrow">↑</span><span class="label">Voltar ao início</span>
+</button>
 <header><h1>⚡ EXECUÇÃO PERFEITA</h1><div>V1 • Checklist online • Nota calculada sobre 100% dos itens</div></header><main>
 
 
@@ -210,6 +248,19 @@ function v5Go(id){
   const el=document.getElementById(id);
   if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
 }
+
+
+function v7BackToTop(){
+  window.scrollTo({top:0,behavior:"smooth"});
+  document.querySelectorAll(".v4-nav-btn").forEach(x=>x.classList.remove("active"));
+  const first=document.querySelector('.v4-nav-btn[onclick*="topChecklist"]');
+  if(first)first.classList.add("active");
+}
+function v7UpdateBackTop(){
+  const b=document.getElementById("v7BackTop");
+  if(b)b.classList.toggle("show",window.scrollY>280);
+}
+window.addEventListener("scroll",v7UpdateBackTop,{passive:true});
 
 const V5_STORES=Array.from({length:999},(_,i)=>String(i+1).padStart(3,"0"));
 let v5CurrentStore=localStorage.getItem("execucao_perfeita_store")||"001";

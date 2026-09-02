@@ -423,7 +423,46 @@ document.getElementById("sectorFilter").onchange=e=>{sec=e.target.value==="TODOS
 document.getElementById("stage").onchange=e=>{stage=e.target.value;render()};
 ["salesTarget","salesAch","salesVsStore","shrink","foodSafety","workSafety","hrScore","dre"].forEach(k=>document.getElementById(k).addEventListener("change",saveManagement));
 loadManagement();renderActions();renderHistory();renderV3();v5InitStores();renderV5();render();
-</script></body></html>
+</script>
+<script>
+/* V9 — inicialização robusta e recuperação da interface */
+(function(){
+  function initExecucaoPerfeitaV9(){
+    try{
+      if(typeof v5InitStores==="function") v5InitStores();
+      if(typeof render==="function") render();
+      if(typeof renderV5==="function") renderV5();
+      if(typeof v7UpdateBackTop==="function") v7UpdateBackTop();
+    }catch(err){
+      console.error("EXECUÇÃO PERFEITA V9:",err);
+    }
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",initExecucaoPerfeitaV9);
+  }else{
+    initExecucaoPerfeitaV9();
+  }
+})();
+
+/* Garante que a troca de loja sempre recarregue a tela inteira. */
+(function(){
+  const original = window.v5SetStore;
+  if(typeof original!=="function") return;
+  window.v5SetStore=function(n){
+    if(!n || n===v5CurrentStore){
+      if(typeof render==="function") render();
+      if(typeof renderV5==="function") renderV5();
+      return;
+    }
+    original(n);
+    if(typeof render==="function") render();
+    if(typeof renderV5==="function") renderV5();
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+})();
+</script>
+
+</body></html>
 <script>
 const v5OriginalSaveSession=typeof saveSession==="function"?saveSession:null;
 if(v5OriginalSaveSession){
